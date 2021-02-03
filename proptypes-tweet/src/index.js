@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 
 
 function Avatar({ hash }) {
@@ -120,15 +121,46 @@ function Tweet({ tweet }) {
 }
 
 const testTweet = {
+    // message: 22,
     message: "Something about cats.",
     gravatar: "3c76215a8eecd571601b122a4f1ede2b",
     author: {
         handle: "catperson",
-        name: "IAMA Cat Person"
+        name: "Gavin C"
     },
     likes: 2,
     retweets: 24,
+    // timestamp: 13
     timestamp: "2016-07-30 21:24:37"
 }
+
+LikeButton.propTypes = {
+    count: PropTypes.number
+};
+RetweetButton.propTypes = {
+    count: PropTypes.number
+};
+Time.propTypes = {
+    time: PropTypes.string
+};
+Message.propTypes = {
+    text: PropTypes.string
+};
+Author.propTypes = {
+    author: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        handle: PropTypes.string.isRequired
+    }).isRequired
+};
+Avatar.propTypes = {
+    hash: PropTypes.string
+};
+// Tweet.propTypes = {
+//     tweet: PropTypes.shape({
+//         message: PropTypes.string.isRequired,
+//         gravatar: PropTypes.string.isRequired
+//     }).isRequired
+// }
+
 
 ReactDOM.render(<Tweet tweet={testTweet} />, document.querySelector('#root'))

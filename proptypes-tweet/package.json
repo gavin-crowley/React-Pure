@@ -1,5 +1,5 @@
 {
-  "name": "static-tweet",
+  "name": "proptypes-tweet",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

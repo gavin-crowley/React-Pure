@@ -1,0 +1,44 @@
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Nothing You Could Do', cursive;
+  font-size: 1.19rem;
+  color: #284283;
+}
+
+.stamp-img {
+  max-width: 100%;
+  display: block;
+}
+
+.envelope {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  width: 650px;
+  min-height: 300px;
+  background: #f5cd5f;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: minmax(1em, 1fr) minmax(0px, 350px) minmax(1em, 1fr);
+  grid-template-areas:
+    'top-left . top-right'
+    '. middle .'
+    '. . .';
+}
+
+.sender {
+  grid-area: top-left;
+}
+
+.receiver {
+  grid-area: middle;
+  padding-left: 4em;
+  padding-bottom: 3em;
+}
+
+.stamp {
+  grid-area: top-right;
+  width: 90px;
+  padding-left: 3em;
+}
