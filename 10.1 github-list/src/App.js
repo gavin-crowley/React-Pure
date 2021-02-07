@@ -3,25 +3,23 @@ import './index.css'
 import Time from './Time';
 
 const FileList = ({ files }) => (
-  <table className="file-list">
-    <tbody>
-      {files.map(file =>
-        <FileListItem key={file.id} file={file} />
-      )}
-    </tbody>
-  </table>
+  <div className="file-list">
+    {files.map(file =>
+      <FileListItem key={file.id} file={file} />
+    )}
+  </div>
 );
 
 
 
 const FileListItem = ({ file }) => (
-  <tr className="file-list-item">
+  <div className="file-list-item">
     <FileName file={file} />
     <CommitMessage commit={file.latestCommit} />
-    <td className="age">
+    <div className="age">
       <Time time={file.updated_at} />
-    </td>
-  </tr>
+    </div>
+  </div>
 );
 
 
@@ -32,9 +30,9 @@ function FileIcon({ file }) {
     icon = 'fa-folder';
   }
   return (
-    <td className="file-icon">
+    <span className="file-icon">
       <i className={`fa ${icon}`} />
-    </td>
+    </span>
   );
 }
 
@@ -43,10 +41,10 @@ function FileIcon({ file }) {
 function FileName({ file }) {
   return (
     <React.Fragment>
-      <FileIcon file={file} />
-      <td className="file-name">
+      <div className="file-name">
+        <FileIcon file={file} />
         {file.name}
-      </td>
+      </div>
     </React.Fragment>
   );
 }
@@ -55,9 +53,9 @@ function FileName({ file }) {
 
 function CommitMessage({ commit }) {
   return (
-    <td className="commit-message">
+    <div className="commit-message">
       {commit.message}
-    </td>
+    </div>
   );
 }
 
