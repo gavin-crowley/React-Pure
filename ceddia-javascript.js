@@ -81,3 +81,23 @@ const Hi = () => <span>Hi</span>;
 
 // forEach iterates over the children and returns nothing, whereas map returns an array made
 // up of the values you return from the function you provide.
+
+// MAPPING A LIST OF TWEETS 
+
+function TweetList({ list }) {
+    return (
+        <>
+            {list.map((item, id) => (
+                <Tweet key={id} tweet={item} />
+            ))}
+        </>
+    )
+}
+
+const tweets = [{
+    message: "Something about cats."
+},
+{
+    message: "Something about DOGS."
+}
+]

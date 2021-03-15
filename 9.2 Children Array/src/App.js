@@ -1,9 +1,10 @@
 import React from 'react'
-import './styles.css'
+import ReactDOM from 'react-dom'
+// import './index.css'
 
 
 function FirstChildOnly({ children }) {
-  console.log(React.Children.toArray(children)[0]);
+  // console.log(React.Children.toArray(children)[0]);
   return (
     <>
       {React.Children.toArray(children)[0]}
@@ -44,6 +45,49 @@ function Tail({ children, number }) {
   );
 }
 
+// ==========================================================
+
+function ForEachExample({ children }) {
+  const items = []
+  return (
+    <>
+      {React.Children.forEach(children, (child) => {
+        items.push(child)
+      })}
+      {/* {console.log(items)} */}
+      {items}
+    </>
+  );
+}
+
+function MapExample({ children }) {
+  return (
+    <>
+      {React.Children.map(children, (child) => {
+        // console.log(child);
+        return child
+      })}
+    </>
+  );
+}
+
+function CountExample({ children }) {
+  return (
+    <>
+      {React.Children.count(children)}
+    </>
+  );
+}
+
+function OnlyExample({ children }) {
+  return (
+    <>
+      {React.Children.only(children)}
+    </>
+  );
+}
+
+
 function App() {
   return (
     <div>
@@ -81,8 +125,32 @@ function App() {
         <h1>e</h1>
       </Tail>
 
+      <ForEachExample>
+        <h1>Red</h1>
+        <h1>Green</h1>
+        <h1>Blue</h1>
+        <h1>Yellow</h1>
+      </ForEachExample>
+
+      <MapExample>
+        <h1>Huey</h1>
+        <h1>Duey</h1>
+        <h1>Louis</h1>
+      </MapExample>
+
+      <CountExample>
+        <h1>one</h1>
+        <h1>two</h1>
+        <h1>three</h1>
+      </CountExample>
+
+      <OnlyExample>
+        <h1>Only Child</h1>
+        {/* <h1>Not Only Child</h1> */}
+      </OnlyExample>
+
 
     </div>);
 }
 
-export default App
+ReactDOM.render(<App />, document.querySelector('#root'))

@@ -7,7 +7,7 @@
   border-collapse: collapse;
 }
 
-.file-list td {
+.file-list span {
   border-top: 1px solid #ccc;
 }
 
