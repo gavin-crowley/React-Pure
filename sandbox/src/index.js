@@ -1,185 +1,156 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import moment from 'moment'
+// import './index.css'
 
 
-function Avatar({ hash }) {
-    const url = `https://www.gravatar.com/avatar/${hash}`;
+function FirstChildOnly({ children }) {
+    // console.log(React.Children.toArray(children)[0]);
     return (
-        <img
-            src={url}
-            className="avatar"
-            alt="avatar"
-        />
+        <>
+            {React.Children.toArray(children)[0]}
+        </>
     );
 }
 
-function Message({ text }) {
+function LastChildOnly({ children }) {
+    const length = React.Children.toArray(children).length;
     return (
-        <div className="message">
-            {text}
-        </div>
+        <>
+            {React.Children.toArray(children)[length - 1]}
+        </>
     );
 }
 
-function Author({ author }) {
-    const { name, handle } = author;
+function Head({ children, number }) {
     return (
-        <span className="author">
-            <span className="name">{name}</span>
-            <span className="handle">@{handle}</span>
-        </span>
+        <>
+            {React.Children.map(children, (child, i) => {
+                if (i > number - 1) return
+                return child
+            })}
+        </>
     );
 }
 
-const Time = ({ time }) => {
-    const timeString = moment(time).fromNow();
+function Tail({ children, number }) {
+    const length = React.Children.toArray(children).length;
+
     return (
-        <span className="time">
-            {timeString}
-        </span>
-    );
-};
-
-const ReplyButton = () => (
-    <i className="fa fa-reply reply-button" />
-);
-
-// function Count({ count }) {
-//     if (count > 0) {
-//         return (
-//             <span className="retweet-count">
-//                 {count}
-//             </span>
-//         );
-//     } else {
-//         return null;
-//     }
-// }
-
-function getRetweetCount(count) {
-    if (count > 0) {
-        return (
-            <span className="retweet-count">
-                {count}
-            </span>
-        );
-    } else {
-        return null;
-    }
-}
-const RetweetButton = ({ count }) => (
-    <span className="retweet-button">
-        <i className="fa fa-retweet" />
-        {getRetweetCount(count)}
-        {/* <Count count={count} /> */}
-
-    </span>
-);
-
-const LikeButton = ({ count }) => (
-    <span className="like-button">
-        <i className="fa fa-heart" />
-        {count > 0 &&
-            <span className="like-count">
-                {count}
-            </span>}
-    </span>
-);
-
-const MoreOptionsButton = () => (
-    <i className="fa fa-ellipsis-h more-options-button" />
-);
-
-function Tweet({ tweet }) {
-    return (
-        <div className="tweet">
-            <Avatar hash={tweet.gravatar} />
-            <div className="content">
-                <Author author={tweet.author} /><Time time={tweet.timestamp} />
-                <Message text={tweet.message} />
-                <div className="buttons">
-                    <ReplyButton />
-                    <RetweetButton count={tweet.retweets} />
-                    <LikeButton count={tweet.likes} />
-                    <MoreOptionsButton />
-                </div>
-            </div>
-        </div>
+        <>
+            {React.Children.map(children, (child, i) => {
+                if (i < length - number) return
+                return child
+            })}
+        </>
     );
 }
 
-const TweetList = ({ tweets }) => (
-    <div className="tweet-list">
-        {
-            tweets.map(tweet =>
-                <Tweet key={tweet.id} tweet={tweet} />
-            )
-        }
-    </div>
-);
+// ==========================================================
 
-const testTweets = [{
-    id: 1,
-    message: "Something about cats.",
-    gravatar: "3c76215a8eecd571601b122a4f1ede2b",
-    author: {
-        handle: "catperson",
-        name: "IAMA Cat Person"
-    },
-    likes: 2,
-    retweets: 24,
-    timestamp: "2016-07-30 21:24:37"
-},
-{
-    id: 2,
-    message: "Something about dogs.",
-    gravatar: "3c76215a8eecd571601b122a4f1ede2b",
-    author: {
-        handle: "dogperson",
-        name: "IAMA Dog Person"
-    },
-    likes: 56,
-    retweets: 129,
-    timestamp: "2011-07-30 21:24:37"
-},
-{
-    id: 3,
-    message: "Something about dogs.",
-    gravatar: "3c76215a8eecd571601b122a4f1ede2b",
-    author: {
-        handle: "dogperson",
-        name: "IAMA Dog Person"
-    },
-    likes: 56,
-    retweets: 129,
-    timestamp: "2011-07-30 21:24:37"
-},
-{
-    id: 4,
-    message: "Something about dogs.",
-    gravatar: "3c76215a8eecd571601b122a4f1ede2b",
-    author: {
-        handle: "dogperson",
-        name: "IAMA Dog Person"
-    },
-    likes: 56,
-    retweets: 129,
-    timestamp: "2011-07-30 21:24:37"
-},
-{
-    id: 5,
-    message: "Something about dogs.",
-    gravatar: "3c76215a8eecd571601b122a4f1ede2b",
-    author: {
-        handle: "dogperson",
-        name: "IAMA Dog Person"
-    },
-    likes: 56,
-    retweets: 129,
-    timestamp: "2011-07-30 21:24:37"
+function ForEachExample({ children }) {
+    const items = []
+    return (
+        <>
+            {React.Children.forEach(children, (child) => {
+                items.push(child)
+            })}
+            {/* {console.log(items)} */}
+            {items}
+        </>
+    );
 }
-]
 
-ReactDOM.render(<TweetList tweets={testTweets} />, document.querySelector('#root'))
+function MapExample({ children }) {
+    return (
+        <>
+            {React.Children.map(children, (child) => {
+                // console.log(child);
+                return child
+            })}
+        </>
+    );
+}
+
+function CountExample({ children }) {
+    return (
+        <>
+            {React.Children.count(children)}
+        </>
+    );
+}
+
+function OnlyExample({ children }) {
+    return (
+        <>
+            {React.Children.only(children)}
+        </>
+    );
+}
+
+
+function App() {
+    return (
+        <div>
+            <FirstChildOnly>
+                <h1>First</h1>
+                <h1>Second</h1>
+            </FirstChildOnly>
+
+            <LastChildOnly>
+                <h1>First</h1>
+                <h1>Second</h1>
+                <h1>Second</h1>
+                <h1>Second</h1>
+                <h1>Last</h1>
+            </LastChildOnly>
+
+            <Head number={3}>
+                <h1>one</h1>
+                <h1>two</h1>
+                <h1>three</h1>
+                <h1>four</h1>
+                <h1>five</h1>
+                <h1>six</h1>
+                <h1>seven</h1>
+                <h1>eight</h1>
+                <h1>nine</h1>
+                <h1>ten</h1>
+            </Head>
+
+            <Tail number={4}>
+                <h1>a</h1>
+                <h1>b</h1>
+                <h1>c</h1>
+                <h1>d</h1>
+                <h1>e</h1>
+            </Tail>
+
+            <ForEachExample>
+                <h1>Red</h1>
+                <h1>Green</h1>
+                <h1>Blue</h1>
+                <h1>Yellow</h1>
+            </ForEachExample>
+
+            <MapExample>
+                <h1>Huey</h1>
+                <h1>Duey</h1>
+                <h1>Louis</h1>
+            </MapExample>
+
+            <CountExample>
+                <h1>one</h1>
+                <h1>two</h1>
+                <h1>three</h1>
+            </CountExample>
+
+            <OnlyExample>
+                <h1>Only Child</h1>
+                {/* <h1>Not Only Child</h1> */}
+            </OnlyExample>
+
+
+        </div>);
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'))

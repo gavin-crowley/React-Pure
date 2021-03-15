@@ -75,3 +75,9 @@ const Hi = () => <span>Hi</span>;
 // Personally, I tend
 // to write function when the component is a bit larger, and use a const () => (...) when it’s only
 // a couple lines. Some people prefer to write arrow functions everywhere. Use what you like.
+
+// ----------------------------------------------
+
+
+// forEach iterates over the children and returns nothing, whereas map returns an array made
+// up of the values you return from the function you provide.
